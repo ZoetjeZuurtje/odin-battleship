@@ -1,5 +1,9 @@
 class Ship {
   constructor (size) {
+    if (typeof size !== 'number' || size < 1) {
+      throw new Error('Invalid Size Error')
+    }
+
     this.length = size
     this.hits = 0
   }
@@ -13,4 +17,4 @@ class Ship {
   }
 }
 
-export default Ship
+export { Ship }
