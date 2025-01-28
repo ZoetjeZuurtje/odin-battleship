@@ -1,0 +1,20 @@
+{
+  "name": "battleship",
+  "version": "1.0.0",
+  "description": "Small game of battleship for the Odin Project",
+  "main": "index.js",
+  "scripts": {
+    "test": "standard --fix && jest",
+    "build": "webpack --config webpack.prod.js",
+    "watch": "webpack --config webpack.dev.js --watch"
+  },
+  "author": "Bram",
+  "license": "MIT",
+  "devDependencies": {
+    "html-webpack-plugin": "^5.6.3",
+    "jest": "^29.7.0",
+    "mini-css-extract-plugin": "^2.9.2",
+    "webpack": "^5.97.1",
+    "webpack-cli": "^6.0.1"
+  }
+}
