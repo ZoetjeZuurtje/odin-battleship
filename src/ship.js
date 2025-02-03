@@ -1,6 +1,6 @@
 class Ship {
   constructor (size) {
-    if (typeof size !== 'number' || size < 1) {
+    if (typeof size !== 'number' || (size > 1 && size < 6)) {
       throw new Error('Invalid Size Error')
     }
 
