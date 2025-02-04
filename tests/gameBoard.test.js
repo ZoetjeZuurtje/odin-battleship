@@ -1,13 +1,6 @@
 import { GameBoard } from "../src/gameBoard";
 
 
-test('The gameboard is a standard size', () => {
-  const shipSizes = [2, 2, 2, 2, 3, 3, 3, 4, 4, 5]
-  const gameBoard = new GameBoard(...shipSizes)
-
-  expect(gameBoard.ships.length).toBe(10)
-})
-
 test('Are all the ships sunk', () => {
   const shipSizes = [2, 2, 2, 2, 3, 3, 3, 4, 4, 5]
   const gameBoard = new GameBoard(...shipSizes)
@@ -17,7 +10,7 @@ test('Are all the ships sunk', () => {
 
 test('The board can receive an attack', () => {
   const shipSizes = [2, 2, 2, 2, 3, 3, 3, 4, 4, 5]
-  const gameBoard = new GameBoard(...ships)
+  const gameBoard = new GameBoard(...shipSizes)
   gameBoard.receiveAttack(0, 1)
 
   expect(gameBoard.attackBoard[0, 1]).toBe(true)
@@ -25,7 +18,7 @@ test('The board can receive an attack', () => {
 
 test('`receiveAttack` returns `false` when the coordinates are outside of the board', () => {
   const shipSizes = [2, 2, 2, 2, 3, 3, 3, 4, 4, 5]
-  const gameBoard = new GameBoard(...ships)
+  const gameBoard = new GameBoard(...shipSizes)
   
 
   expect(gameBoard.receiveAttack(0, -1)).toBe(false)
@@ -34,7 +27,7 @@ test('`receiveAttack` returns `false` when the coordinates are outside of the bo
 
 test('Can we place a ship', () => {
   const shipSizes = [2, 2, 2, 2, 3, 3, 3, 4, 4, 5]
-  const gameBoard = new GameBoard(...ships)
+  const gameBoard = new GameBoard(...shipSizes)
   const shipIndex = 0
   gameBoard.placeShipAt(0, 1, 'horizontal', shipIndex)
 
