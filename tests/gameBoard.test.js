@@ -64,6 +64,6 @@ test('`placeShipAt` returns `false` when the coordinates are outside of the boar
   const gameBoard = new GameBoard(...shipSizes)
   
 
-  expect(gameBoard.placeShipAt(0, -1)).toBe(false)
-  expect(gameBoard.placeShipAt(17, 0)).toBe(false)
+  expect(gameBoard.placeShipAt(0, -1, 'horizontal', 0)).toBe(false)
+  expect(gameBoard.placeShipAt(17, 0, 'horizontal', 0)).toBe(false)
 })
