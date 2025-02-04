@@ -55,8 +55,7 @@ test('Can we place a ship vertically', () => {
   
   expect(gameBoard.placeShipAt(x, y, 'vertical', shipIndex)).toBe(true) // success code
   
-  expect(gameBoard.getShip(x, y)).not.toBe(false)
-  expect(gameBoard.getShip(x, y + 1)).not.toBe(false)
+  expect(gameBoard.getShip(x, y)).toEqual({hits: 0, length: 2})
 })
 
 test('`placeShipAt` returns `false` when the coordinates are outside of the board', () => {

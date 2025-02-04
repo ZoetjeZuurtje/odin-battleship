@@ -13,6 +13,20 @@ class GameBoard {
     }
   }
 
+  generateRandomBoard () {
+    let shipsPlaced = 0
+    while (shipsPlaced < this.ships.length) {
+      const x = Math.floor(Math.random() * 10)
+      const y = Math.floor(Math.random() * 10)
+      const direction = Math.random() > 0.5 ? 'horizontal' : 'vertical'
+      const result = this.placeShipAt(x, y, direction, shipsPlaced)
+
+      if (result) {
+        shipsPlaced++
+      }
+    }
+  }
+
   allSunk = () => this.ships.every(ship => ship.isSunk())
 
   isOnBoard (x, y) {
@@ -43,17 +57,28 @@ class GameBoard {
     if (direction === 'horizontal' && !this.isOnBoard(x + length, y)) return false
     if (direction === 'vertical' && !this.isOnBoard(x, y + length)) return false
 
-
+    let coordsToSet = []
     if (direction === 'vertical') {
       do {
-        this.shipBoard[y + length][x] = shipIndex
+        if (this.shipBoard[y + length][x] !== false) {
+          return false
+        }
+        coordsToSet.push({x, y: y + length})
         length--
       } while (length >= 0)
     } else if (direction === 'horizontal') {
       do {
-        this.shipBoard[y][x + length] = shipIndex
+        if (this.shipBoard[y][x + length]) {
+          return false
+        }
+        coordsToSet.push({x: x + length, y})
         length--
       } while (length >= 0)
+    }
+
+    // actually set the ships
+    for (const coord of coordsToSet) {
+      this.shipBoard[coord.y][coord.x] = shipIndex
     }
 
     return true
