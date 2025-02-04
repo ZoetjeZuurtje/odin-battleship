@@ -38,6 +38,27 @@ test('Can we place a ship', () => {
   expect(gameBoard.getShip(x + 2, y)).toBe(null)
 })
 
+test('Can we place a ship out of bounds', () => {
+  const shipSizes = [2, 2, 2, 2, 3, 3, 3, 4, 4, 5]
+  const gameBoard = new GameBoard(...shipSizes)
+  const shipIndex = 0
+  let [x, y] = [9, 1]
+  
+  expect(gameBoard.placeShipAt(x, y, 'horizontal', shipIndex)).toBe(false) // success code
+})
+
+test('Can we place a ship vertically', () => {
+  const shipSizes = [2, 2, 2, 2, 3, 3, 3, 4, 4, 5]
+  const gameBoard = new GameBoard(...shipSizes)
+  const shipIndex = 0
+  let [x, y] = [0, 1]
+  
+  expect(gameBoard.placeShipAt(x, y, 'vertical', shipIndex)).toBe(true) // success code
+  
+  expect(gameBoard.getShip(x, y)).toBe(shipIndex)
+  expect(gameBoard.getShip(x, y + 1)).toBe(shipIndex)
+})
+
 test('`placeShipAt` returns `false` when the coordinates are outside of the board', () => {
   const shipSizes = [2, 2, 2, 2, 3, 3, 3, 4, 4, 5]
   const gameBoard = new GameBoard(...shipSizes)
