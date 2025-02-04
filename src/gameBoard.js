@@ -38,9 +38,11 @@ class GameBoard {
   }
 
   placeShipAt (x, y, direction, shipIndex) {
-    if (!this.isOnBoard(x, y)) return false
-
     let length = this.ships[shipIndex].length - 1
+    if (!this.isOnBoard(x, y)) return false
+    if (direction === 'horizontal' && !this.isOnBoard(x + length, y)) return false
+    if (direction === 'vertical' && !this.isOnBoard(x, y + length)) return false
+
 
     if (direction === 'vertical') {
       do {
