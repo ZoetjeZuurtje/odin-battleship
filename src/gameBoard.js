@@ -23,7 +23,7 @@ class GameBoard {
 
   // returns the ship on (x, y), or null otherwise
   getShip (x, y) {
-    return this.shipBoard[y][x] === false ? null : this.shipBoard[y][x]
+    return this.shipBoard[y][x] === false ? null : this.ships[this.shipBoard[y][x]]
   }
 
   // Return true on success, false on failure

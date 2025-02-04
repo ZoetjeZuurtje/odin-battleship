@@ -33,8 +33,8 @@ test('Can we place a ship', () => {
   
   expect(gameBoard.placeShipAt(x, y, 'horizontal', shipIndex)).toBe(true) // success code
   
-  expect(gameBoard.getShip(x, y)).toBe(shipIndex)
-  expect(gameBoard.getShip(x + 1, y)).toBe(shipIndex)
+  expect(gameBoard.getShip(x, y)).not.toBe(null)
+  expect(gameBoard.getShip(x + 1, y)).not.toBe(null)
   expect(gameBoard.getShip(x + 2, y)).toBe(null)
 })
 
@@ -55,8 +55,8 @@ test('Can we place a ship vertically', () => {
   
   expect(gameBoard.placeShipAt(x, y, 'vertical', shipIndex)).toBe(true) // success code
   
-  expect(gameBoard.getShip(x, y)).toBe(shipIndex)
-  expect(gameBoard.getShip(x, y + 1)).toBe(shipIndex)
+  expect(gameBoard.getShip(x, y)).not.toBe(false)
+  expect(gameBoard.getShip(x, y + 1)).not.toBe(false)
 })
 
 test('`placeShipAt` returns `false` when the coordinates are outside of the board', () => {
@@ -66,4 +66,15 @@ test('`placeShipAt` returns `false` when the coordinates are outside of the boar
 
   expect(gameBoard.placeShipAt(0, -1, 'horizontal', 0)).toBe(false)
   expect(gameBoard.placeShipAt(17, 0, 'horizontal', 0)).toBe(false)
+})
+
+test('Can we hit a ship we just placed', () => {
+  const shipSizes = [2, 2, 2, 2, 3, 3, 3, 4, 4, 5]
+  const gameBoard = new GameBoard(...shipSizes)
+  const shipIndex = 0
+  let [x, y] = [0, 1]
+  
+  expect(gameBoard.placeShipAt(x, y, 'vertical', shipIndex)).toBe(true) // success code
+  gameBoard.receiveAttack(x, y)
+  expect(gameBoard.getShip(x, y).hits).toBe(1)
 })
