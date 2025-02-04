@@ -13,7 +13,7 @@ test('The board can receive an attack', () => {
   const gameBoard = new GameBoard(...shipSizes)
   gameBoard.receiveAttack(0, 1)
 
-  expect(gameBoard.attackBoard[0, 1]).toBe(true)
+  expect(gameBoard.attackBoard[1][0]).toBe(true)
 })
 
 test('`receiveAttack` returns `false` when the coordinates are outside of the board', () => {
@@ -29,15 +29,18 @@ test('Can we place a ship', () => {
   const shipSizes = [2, 2, 2, 2, 3, 3, 3, 4, 4, 5]
   const gameBoard = new GameBoard(...shipSizes)
   const shipIndex = 0
-  gameBoard.placeShipAt(0, 1, 'horizontal', shipIndex)
-
-  expect(gameBoard.shipBoard[0, 1]).toBe(shipIndex)
-  expect(gameBoard.shipBoard[1, 1]).toBe(shipIndex)
+  let [x, y] = [0, 1]
+  
+  expect(gameBoard.placeShipAt(x, y, 'horizontal', shipIndex)).toBe(true) // success code
+  
+  expect(gameBoard.getShip(x, y)).toBe(shipIndex)
+  expect(gameBoard.getShip(x + 1, y)).toBe(shipIndex)
+  expect(gameBoard.getShip(x + 2, y)).toBe(null)
 })
 
 test('`placeShipAt` returns `false` when the coordinates are outside of the board', () => {
   const shipSizes = [2, 2, 2, 2, 3, 3, 3, 4, 4, 5]
-  const gameBoard = new GameBoard(...ships)
+  const gameBoard = new GameBoard(...shipSizes)
   
 
   expect(gameBoard.placeShipAt(0, -1)).toBe(false)
