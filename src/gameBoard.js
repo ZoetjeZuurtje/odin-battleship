@@ -51,29 +51,24 @@ class GameBoard {
     return true
   }
 
-  placeShipAt (x, y, direction, shipIndex) {
-    let length = this.ships[shipIndex].length - 1
-    if (!this.isOnBoard(x, y)) return false
-    if (direction === 'horizontal' && !this.isOnBoard(x + length, y)) return false
-    if (direction === 'vertical' && !this.isOnBoard(x, y + length)) return false
+  placeShipAt (x, y, isHorizontal, shipIndex) {
+    let length = this.ships[shipIndex].length
 
-    let coordsToSet = []
-    if (direction === 'vertical') {
-      do {
-        if (this.shipBoard[y + length][x] !== false) {
-          return false
-        }
-        coordsToSet.push({x, y: y + length})
-        length--
-      } while (length >= 0)
-    } else if (direction === 'horizontal') {
-      do {
-        if (this.shipBoard[y][x + length]) {
-          return false
-        }
-        coordsToSet.push({x: x + length, y})
-        length--
-      } while (length >= 0)
+    // Check if the ship fits on the board. If not, return false
+    const fitsOnBoard = this.isOnBoard(x, y) && ((isHorizontal && this.isOnBoard(x + length, y)) || (!isHorizontal && this.isOnBoard(x, y + length)))
+    if (!fitsOnBoard) return false
+
+    const coordsToSet = []
+    while (length > 0) {
+      // Get new tile on the board...
+      length--
+      const currentX = isHorizontal ? x + length : x
+      const currentY = !isHorizontal ? y + length : y
+      // ... and check if it is already occupied
+      const coordinateIsOccupied = this.shipBoard[currentY][currentX] !== false
+      if (coordinateIsOccupied) return false
+
+      coordsToSet.push({ x: currentX, y: currentY }) // Otherwise, record the location and continue the loop
     }
 
     // actually set the ships
