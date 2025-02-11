@@ -1,4 +1,4 @@
-import { GameLogic } from '../src/gameLogic'
+import { GameLogic } from '../src/js/modules/gameLogic'
 
 
 test('EndTurn() works', () => {

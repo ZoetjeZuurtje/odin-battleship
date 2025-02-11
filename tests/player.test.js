@@ -1,4 +1,4 @@
-import { Player } from "../src/player";
+import { Player } from "../src/js/modules/player";
 
 test('CPU is disabled by default' , () => {
   const player = new Player()

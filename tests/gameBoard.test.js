@@ -1,4 +1,4 @@
-import { GameBoard } from "../src/gameBoard";
+import { GameBoard } from "../src/js/modules/gameBoard";
 
 
 test('Are all the ships sunk', () => {
