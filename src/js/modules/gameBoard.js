@@ -18,8 +18,8 @@ class GameBoard {
     while (shipsPlaced < this.ships.length) {
       const x = Math.floor(Math.random() * 10)
       const y = Math.floor(Math.random() * 10)
-      const direction = Math.random() > 0.5 ? 'horizontal' : 'vertical'
-      const result = this.placeShipAt(x, y, direction, shipsPlaced)
+      const setHorizontal = Math.random() > 0.5
+      const result = this.placeShipAt(x, y, setHorizontal, shipsPlaced)
 
       if (result) {
         shipsPlaced++

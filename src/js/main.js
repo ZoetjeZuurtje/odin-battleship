@@ -1,14 +1,13 @@
 'use-strict'
 
 // CSS imports
-import '../css/style.css'
 import 'normalize.css'
+import '../css/style.css'
 
 // JS modules
-import { Ship } from './modules/ship'
-import { GameBoard } from './modules/gameBoard'
-import { Player } from './modules/player'
 import { GameLogic } from './modules/gameLogic'
 
-
 // Actual code goes here
+const game = new GameLogic(document.querySelector('#battleship-board-1'), document.querySelector('#battleship-board-2'))
+game.players[0].gameBoard.generateRandomBoard();
+game.render()
