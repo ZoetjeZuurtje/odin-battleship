@@ -28,6 +28,7 @@
     ]
   },
   "dependencies": {
+    "css-loader": "^7.1.2",
     "normalize.css": "^8.0.1"
   }
 }
