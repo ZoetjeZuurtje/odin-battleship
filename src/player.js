@@ -1,4 +1,4 @@
-import { GameBoard } from "./gameBoard"
+import { GameBoard } from './gameBoard'
 
 class Player {
   constructor (options = {}) {
