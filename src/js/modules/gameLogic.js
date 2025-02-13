@@ -34,34 +34,38 @@ class GameLogic {
   }
 
   render () {
-    const shipBoard = this.players[0].gameBoard.shipBoard
+    const board = this.players[0].gameBoard
     const attackBoard = this.players[0].gameBoard.attackBoard.flat()
-    console.log(shipBoard);
-    for (let y = 0; y < shipBoard.length; y++) {
-      for (let x = 0; x < shipBoard[y].length; x++) {
-        const tile = shipBoard[y][x]
-        if (tile != false) {
-          this.board1.children[(y * 10) + x].classList.add('ship')
+    console.log(board)
+    for (let y = 0; y < board.shipBoard.length; y++) {
+      for (let x = 0; x < board.shipBoard[y].length; x++) {
+        const shipId = board.getShipId(x, y)
+        if (shipId === null) {
+          continue
         }
-        if (shipBoard.at(y).at(x - 1) === tile && tile === shipBoard.at(y).at(x + 1)) {
-          this.board1.children[(y * 10) + x].classList.add('horizontal-bridge')
+
+        const shipExtendsNorth = board.getShipId(x, y + 1) === shipId
+        const shipExtendsSouth = board.getShipId(x, y - 1) === shipId
+        const shipExtendsEast = board.getShipId(x + 1, y) === shipId
+        const shipExtendsWest = board.getShipId(x - 1, y) === shipId
+        this.board1.children[(y * 10) + x].classList.add('ship')
+
+        let cssClass = ''
+        if (shipExtendsEast && shipExtendsWest) {
+          cssClass = 'horizontal-bridge'
+        } else if (shipExtendsNorth && shipExtendsSouth) {
+          cssClass = 'vertical-bridge'
+        } else if (shipExtendsNorth) {
+          cssClass = 'top-end'
+        } else if (shipExtendsEast) {
+          cssClass = 'left-end'
+        } else if (shipExtendsSouth) {
+          cssClass = 'bottom-end'
+        } else if (shipExtendsWest) {
+          cssClass = 'right-end'
         }
-        if (shipBoard.at(y - 1).at(x) === tile && tile === shipBoard.at(y + 1).at(x)) {
-          this.board1.children[(y * 10) + x].classList.add('vertical-bridge')
-        }
-        if (shipBoard.at(y).at(x - 1) === tile && shipBoard.at(y).at(x + 1) !== tile) {
-          this.board1.children[(y * 10) + x].classList.add('right-end')
-        }
-        if (shipBoard.at(y).at(x - 1) !== tile && shipBoard.at(y).at(x + 1) === tile) {
-          this.board1.children[(y * 10) + x].classList.add('left-end')
-        }
-        if (shipBoard.at(y - 1).at(x) === false && shipBoard.at(y + 1).at(x) !== false) {
-          this.board1.children[(y * 10) + x].classList.add('top-end')
-        }
-        if (shipBoard.at(y - 1).at(x) !== false && shipBoard.at(y + 1).at(x) === false) {
-          this.board1.children[(y * 10) + x].classList.add('bottom-end')
-        }
-      } 
+        this.board1.children[(y * 10) + x].classList.add(cssClass)
+      }
     }
   }
 }
