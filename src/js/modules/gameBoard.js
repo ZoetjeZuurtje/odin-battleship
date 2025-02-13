@@ -1,7 +1,7 @@
 import { Ship } from './ship'
 
 class GameBoard {
-  constructor (...shipSizes) {
+  constructor (boardElement, ...shipSizes) {
     this.boardSize = 10
     this.ships = shipSizes.map(size => new Ship(size))
     this.attackBoard = new Array(this.boardSize)
