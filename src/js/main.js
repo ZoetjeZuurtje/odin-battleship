@@ -9,7 +9,7 @@ import { GameLogic } from './modules/gameLogic'
 
 // Actual code goes here
 const gameBoards = [document.querySelector('#battleship-board-1'), document.querySelector('#battleship-board-2')]
-const game = new GameLogic(...gameBoards)
+const game = new GameLogic(gameBoards[0], gameBoards[1], {cpu: true})
 game.render()
 
 gameBoards.forEach(board => {

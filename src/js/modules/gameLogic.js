@@ -34,6 +34,11 @@ class GameLogic {
     if (defendingPlayer.gameBoard.allSunk()) {
       window.alert(`${this.getDefendingPlayer().name} Wins!`)
     }
+    if (!this.getAttackingPlayer().isHuman()) {
+      const {x, y} = this.getAttackingPlayer().calculateAttack()
+      console.log(x, y)
+      this.attackField(x, y)
+    }
   }
 
   render () {
