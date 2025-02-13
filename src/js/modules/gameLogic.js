@@ -1,7 +1,9 @@
 import { Player } from './player'
 
 class GameLogic {
-  constructor (options = {}) {
+  constructor (firstBoard, secondBoard, options = {}) {
+    this.firstBoardElement = firstBoard
+    this.secondBoardElement = secondBoard
     this.isCpuEnabled = options?.cpu ?? false
 
     this.players = [new Player(), new Player({ cpu: this.isCpuEnabled })]
@@ -24,19 +26,17 @@ class GameLogic {
 
   attackField (x, y) {
     const defendingPlayer = this.getDefendingPlayer()
-    const isHit = defendingPlayer.gameBoard.receiveAttack(x, y) // Make the attack
-
-    if (!isHit) { // If the attack misses, end the turn
-      this.endTurn()
-    }
+    /* const isHit = */ defendingPlayer.gameBoard.receiveAttack(x, y) // Make the attack
+    this.endTurn()
+    this.render()
   }
 
-  render (firstBoardElement, secondBoardElement) {
+  render () {
     const firstBoard = this.players[0].gameBoard.renderBoard()
     const secondBoard = this.players[1].gameBoard.renderBoard()
 
-    firstBoardElement.replaceChildren(firstBoard)
-    secondBoardElement.replaceChildren(secondBoard)
+    this.firstBoardElement.replaceChildren(firstBoard)
+    this.secondBoardElement.replaceChildren(secondBoard)
   }
 }
 

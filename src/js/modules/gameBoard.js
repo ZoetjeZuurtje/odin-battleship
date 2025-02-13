@@ -96,7 +96,13 @@ class GameBoard {
     for (let y = 0; y < this.shipBoard.length; y++) {
       for (let x = 0; x < this.shipBoard[y].length; x++) {
         const tile = document.createElement('div')
-
+        tile.dataset.x = x
+        tile.dataset.y = y
+        // Here we quickly check if the tile has already been hit
+        if (this.attackBoard[y][x]) {
+          tile.classList.add('shot')
+        }
+        // Everything here concerns the ships
         const shipId = this.getShipId(x, y)
         if (shipId === null) {
           fragment.append(tile)
@@ -121,6 +127,8 @@ class GameBoard {
         } else if (shipExtendsWest) {
           cssClass = 'right-end'
         }
+
+        // Here we apply the style
         tile.classList.add('ship', cssClass)
         fragment.append(tile)
       }
