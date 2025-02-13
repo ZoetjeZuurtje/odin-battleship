@@ -1,13 +1,14 @@
 import { GameBoard } from './gameBoard'
 
 class Player {
-  constructor (options = {}) {
+  constructor (name, isCPU) {
     const startShips = [2, 2, 2, 2, 3, 3, 3, 4, 4, 5]
     this.gameBoard = new GameBoard(...startShips)
-    this._cpu = options?.cpu
+    this.cpu = isCPU
+    this.name = name
   }
 
-  isHuman = () => !this._cpu
+  isHuman = () => !this.cpu
 }
 
 export { Player }

@@ -79,3 +79,11 @@ main {
     background-position-x: right;
   }
 }
+
+.battleship-board.can-receive-attack > div.ship:not(.shot) {
+  background-image: linear-gradient(transparent, transparent);
+}
+.battleship-board.can-receive-attack > div.ship.shot {
+  background-size: 80% 80%;
+  background-position: center center;
+}

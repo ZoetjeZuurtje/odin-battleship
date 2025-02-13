@@ -14,6 +14,7 @@ game.render()
 
 gameBoards.forEach(board => {
   board.addEventListener('click', (event) => {
+    if (!event.target.parentElement.classList.contains('can-receive-attack')) return // Return if the player clicked on the wrong board.
     const x = event.target.dataset.x
     const y = event.target.dataset.y
     game.attackField(x, y)

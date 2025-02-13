@@ -6,7 +6,7 @@ class GameLogic {
     this.secondBoardElement = secondBoard
     this.isCpuEnabled = options?.cpu ?? false
 
-    this.players = [new Player(), new Player({ cpu: this.isCpuEnabled })]
+    this.players = [new Player('Player 1'), new Player('Player 2', this.isCpuEnabled)]
 
     this.turn = false
   }
@@ -26,9 +26,14 @@ class GameLogic {
 
   attackField (x, y) {
     const defendingPlayer = this.getDefendingPlayer()
-    /* const isHit = */ defendingPlayer.gameBoard.receiveAttack(x, y) // Make the attack
-    this.endTurn()
-    this.render()
+    const isHit =  defendingPlayer.gameBoard.receiveAttack(x, y) // Make the attack
+    if (isHit) {
+      this.endTurn()
+      this.render()
+    }
+    if (defendingPlayer.gameBoard.allSunk()) {
+      window.alert(`${this.getDefendingPlayer().name} Wins!`)
+    }
   }
 
   render () {
@@ -37,6 +42,9 @@ class GameLogic {
 
     this.firstBoardElement.replaceChildren(firstBoard)
     this.secondBoardElement.replaceChildren(secondBoard)
+
+    this.firstBoardElement.classList.toggle('can-receive-attack')
+    this.secondBoardElement.classList.toggle('can-receive-attack')
   }
 }
 

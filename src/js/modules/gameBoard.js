@@ -53,7 +53,7 @@ class GameBoard {
   // Return true on success, false on failure
   receiveAttack (x, y) {
     if (!this.isOnBoard(x, y)) return false // invalid square
-    if (this.attackBoard[x][y]) return false // square has already been shot at
+    if (this.attackBoard[y][x]) return false // square has already been shot at
 
     this.attackBoard[y][x] = true
     this.getShip(x, y)?.hit()
