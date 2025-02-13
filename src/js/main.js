@@ -8,6 +8,6 @@ import '../css/style.css'
 import { GameLogic } from './modules/gameLogic'
 
 // Actual code goes here
-const game = new GameLogic(document.querySelector('#battleship-board-1'), document.querySelector('#battleship-board-2'))
-game.players[0].gameBoard.generateRandomBoard();
-game.render()
+const game = new GameLogic()
+game.players[0].gameBoard.generateRandomBoard()
+game.render(document.querySelector('#battleship-board-1'), document.querySelector('#battleship-board-2'))

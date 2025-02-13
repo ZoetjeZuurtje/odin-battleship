@@ -2,18 +2,22 @@ import { Ship } from './ship'
 
 class GameBoard {
   constructor (...shipSizes) {
-    const boardSize = 10
+    this.boardSize = 10
     this.ships = shipSizes.map(size => new Ship(size))
-    this.attackBoard = new Array(boardSize)
-    this.shipBoard = new Array(boardSize)
+    this.attackBoard = new Array(this.boardSize)
+    this.shipBoard = new Array(this.boardSize)
+    this.generateRandomBoard()
+  }
 
+  clear () {
     for (let i = 0; i < this.attackBoard.length; i++) {
-      this.attackBoard[i] = new Array(boardSize).fill(false)
-      this.shipBoard[i] = new Array(boardSize).fill(false)
+      this.attackBoard[i] = new Array(this.boardSize).fill(false)
+      this.shipBoard[i] = new Array(this.boardSize).fill(false)
     }
   }
 
   generateRandomBoard () {
+    this.clear()
     let shipsPlaced = 0
     while (shipsPlaced < this.ships.length) {
       const x = Math.floor(Math.random() * 10)
@@ -83,6 +87,45 @@ class GameBoard {
     }
 
     return true
+  }
+
+  // Returns a documentFragment representing the current state of the board
+  renderBoard () {
+    const fragment = new DocumentFragment()
+
+    for (let y = 0; y < this.shipBoard.length; y++) {
+      for (let x = 0; x < this.shipBoard[y].length; x++) {
+        const tile = document.createElement('div')
+
+        const shipId = this.getShipId(x, y)
+        if (shipId === null) {
+          fragment.append(tile)
+          continue
+        }
+        const shipExtendsNorth = this.getShipId(x, y + 1) === shipId
+        const shipExtendsSouth = this.getShipId(x, y - 1) === shipId
+        const shipExtendsEast = this.getShipId(x + 1, y) === shipId
+        const shipExtendsWest = this.getShipId(x - 1, y) === shipId
+
+        let cssClass = ''
+        if (shipExtendsEast && shipExtendsWest) {
+          cssClass = 'horizontal-bridge'
+        } else if (shipExtendsNorth && shipExtendsSouth) {
+          cssClass = 'vertical-bridge'
+        } else if (shipExtendsNorth) {
+          cssClass = 'top-end'
+        } else if (shipExtendsEast) {
+          cssClass = 'left-end'
+        } else if (shipExtendsSouth) {
+          cssClass = 'bottom-end'
+        } else if (shipExtendsWest) {
+          cssClass = 'right-end'
+        }
+        tile.classList.add('ship', cssClass)
+        fragment.append(tile)
+      }
+    }
+    return fragment
   }
 }
 
