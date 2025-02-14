@@ -17,7 +17,9 @@ class GameBoard {
     }
   }
 
-  generateRandomBoard () {
+  generateRandomBoard = () => {
+    if (!this.attackBoard.flat().every(element => !element)) return // Check if the game is already in progess
+
     this.clear()
     let shipsPlaced = 0
     while (shipsPlaced < this.ships.length) {
@@ -29,6 +31,7 @@ class GameBoard {
       if (result) {
         shipsPlaced++
       }
+      this.render()
     }
   }
 

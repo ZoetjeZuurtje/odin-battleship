@@ -17,7 +17,7 @@ main {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  gap: 10%;
+  gap: 50px;
 }
 
 .battleship-board {
@@ -86,4 +86,13 @@ main {
 .battleship-board.can-receive-attack > div.ship.shot {
   background-size: 80% 80%;
   background-position: center center;
+}
+
+.refresh-button {
+  margin: 1rem;
+  padding: 1rem;
+  align-self: flex-end;
+  background-color: var(--primary-color);
+  border-radius: 5px;
+  border-color: var(--primary-color);
 }

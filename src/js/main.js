@@ -15,12 +15,11 @@ const secondBoardElement = document.querySelector('#battleship-board-2')
 
 const firstGameBoard = new GameBoard(firstBoardElement, ...startShipSizes)
 const secondGameBoard = new GameBoard(secondBoardElement, ...startShipSizes)
+const layoutResetButton = document.querySelector('#layout-reset-button')
 
 const playerOne = new Player('player 1', false, firstGameBoard)
 const playerTwo = new Player('cpu 1', true, secondGameBoard)
 
-firstGameBoard.render()
-secondGameBoard.render()
-
 firstBoardElement.addEventListener('click', (e) => { playerOne.handleAttack(e, playerTwo) })
 secondBoardElement.addEventListener('click', (e) => { playerTwo.handleAttack(e, playerOne) })
+layoutResetButton.addEventListener('click', firstGameBoard.generateRandomBoard)
