@@ -2,6 +2,7 @@ import { Ship } from './ship'
 
 class GameBoard {
   constructor (boardElement, ...shipSizes) {
+    this.boardElement = boardElement
     this.boardSize = 10
     this.ships = shipSizes.map(size => new Ship(size))
     this.attackBoard = new Array(this.boardSize)
@@ -90,7 +91,7 @@ class GameBoard {
   }
 
   // Returns a documentFragment representing the current state of the board
-  renderBoard () {
+  render () {
     const fragment = new DocumentFragment()
 
     for (let y = 0; y < this.shipBoard.length; y++) {
@@ -133,7 +134,7 @@ class GameBoard {
         fragment.append(tile)
       }
     }
-    return fragment
+    this.boardElement.replaceChildren(fragment)
   }
 }
 
